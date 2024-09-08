@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Donor</title>
+    <style>
+      /* Add spacing between elements */
+      .spacing {
+        margin-top: 10px; /* Adjust the margin-bottom value as needed */
+      }
+      .button-container button {
+        margin-right: 0;
+        /* .button-container button {
+        padding-right: 0; Set padding to 0 */
+      }
+    </style>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Dashboard</h1>
+    <!-- <button href="user_details.html">Please fill the details</button> -->
+    <div>
+      <a class="spacing btn-primary" href="user_details.html" role="button"
+        >Please fill the details</a
+      ><br />
+    </div>
+
+    <div>
+      <button type="button" onclick="goToAppointment()" class="spacing">
+        Please book an appointment
+      </button>
+      <!-- <a class="spacing" href="appointment.html" role="button">
+        Please book an appointment</a
+      > -->
+    </div>
+
+    <table class="table" id="content">
+      <thead>
+        <tr>
+          <th scope="col">Appointment_id</th>
+          <th scope="col">Hospital_name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Cancel</th>
+          <th scope="col">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>
+            <button id="delete_btn" onclick="cancel_appointment()">
+              cancel
+            </button>
+          </td>
+          <td>
+            <button id="update_btn" onclick="update_appointment()">
+              update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <!-- <span class="close" onclick="closeModal()">&times;</span> -->
+        <p>Are you sure you want to cancel the appointment?</p>
+        <div class="buttons">
+          <button onclick="cancel_appointment()">Yes, Cancel</button>
+          <button onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function goToAppointment() {
+        window.location.href = "appointment.html";
+      }
+
+      // JavaScript for handling modal functionality
+
+      // Get the modal element
+      var modal = document.getElementById("myModal");
+
+      // Function to open the modal
+      function openModal() {
+        modal.style.display = "block";
+      }
+
+      // Function to close the modal
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      // Function to handle canceling the appointment
+
+      var xhttp = new XMLHttpRequest();
+
+      // Define the callback function to handle the response
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          // Update the result paragraph with the response
+          document.getElementById("content").innerHTML = this.responseText;
+        }
+      };
+
+      // Open a GET request to the PHP page
+      xhttp.open("GET", "show_appoinment.php", true);
+
+      // Send the request
+      xhttp.send();
+
+      function cancel_appointment(e) {
+        // Collect data from the form
+        var appointmentId = document.getElementById("ap_id").textContent;
+        console.log(appointmentId);
+
+        // Make an AJAX request to the PHP page
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            // Display the result in the result div
+            document.getElementById("content").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("POST", "cancel_appointment.php", true);
+        xhttp.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        xhttp.send("appointmentId=" + appointmentId);
+        closeModal();
+      }
+
+      function update_appointment() {
+        window.location.href = "fetch_appointment.php";
+        // var appointmentId = document.getElementById("ap_id").textContent;
+        // console.log(appointmentId);
+
+        // var xhttp = new XMLHttpRequest();
+
+        // // Define the callback function to handle the response
+        // xhttp.onreadystatechange = function () {
+        //   if (this.readyState == 4 && this.status == 200) {
+        //     // Update the result paragraph with the response
+        //     var appointmentDetails = JSON.parse(this.responseText);
+
+        //     document.getElementById("hospital").value =
+        //       appointmentDetails.hospital_name;
+
+        //     document.getElementById("ap_date").value = appointmentDetails.date;
+        //   }
+        // };
+
+        // // Open a GET request to the PHP page
+        // xhttp.open(
+        //   "GET",
+        //   "fetch_appointment.php?appointmentId=" + appointmentId,
+        //   true
+        // );
+
+        // // Send the request
+        // xhttp.send();
+      }
+    </script>
+  </body>
+</html>

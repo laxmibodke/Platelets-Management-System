@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>APPOINTMENT</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  </head>
+  <body>
+    <div class="container margin-to=120">
+      <div class="row col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+          <div class="panel-heading text-center">
+            <h1>Appointment Details</h1>
+          </div>
+          <div class="panel-body" id="appointment">
+            <form target="_blank" action="appointment_add.php" method="post">
+              <!-- <form action="login.html" method="post"> -->
+              <!-- <div class="form-group">
+                <label for="number">Phone Number</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="number"
+                  name="number"
+                />
+              </div> -->
+
+              <div class="form-group">
+                <label for="noDefaultSelection">Choose a hospital:</label>
+                <select class="form-control" id="hospital" name="Hospital">
+                  <option value=""></option>
+                  <option value="City_hospital">city hospital</option>
+                  <option value="Appolo_hospital">Appolo hospital</option>
+                  <option value="Leelavati_hospital">Leelavati hospital</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="dob">Date:</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  id="ap_date"
+                  name="ap_date"
+                  required
+                />
+              </div>
+
+              <input
+                value="Book"
+                type="submit"
+                class="btn btn-primary center"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
